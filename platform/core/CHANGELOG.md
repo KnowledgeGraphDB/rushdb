@@ -1,5 +1,11 @@
 # rushdb-core
 
+## 2.12.0
+
+### Minor Changes
+
+- 3bb1f3a: Minor UX improvements
+
 ## 2.11.2
 
 ### Patch Changes
