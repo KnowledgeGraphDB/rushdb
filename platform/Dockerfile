@@ -38,8 +38,12 @@ COPY ./platform/core/nest-cli.json ./platform/core/
 # Build javascript-sdk first
 RUN cd packages/javascript-sdk && pnpm build
 
-# Build dashboard
-ENV VITE_BACKEND_BASE_URL=""
+# Build dashboard. VITE_BACKEND_BASE_URL tells the dashboard where the API
+# lives: empty = same-origin (self-host default); hosted builds pass an
+# absolute URL (e.g. https://api.rushdb.com) via --build-arg so the UI at
+# app.rushdb.com calls the API at api.rushdb.com.
+ARG VITE_BACKEND_BASE_URL=""
+ENV VITE_BACKEND_BASE_URL=$VITE_BACKEND_BASE_URL
 RUN cd platform/dashboard && pnpm build
 
 # Create public directory in core and copy dashboard build

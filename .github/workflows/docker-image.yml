@@ -35,6 +35,11 @@ on:
         required: false
         default: true
         type: boolean
+      build_args:
+        description: 'Docker build args (KEY=VALUE, one per line)'
+        required: false
+        default: ''
+        type: string
     outputs:
       image:
         description: 'Fully qualified image reference that was published'
@@ -81,6 +86,7 @@ jobs:
           file: ${{ inputs.dockerfile }}
           platforms: ${{ matrix.platform }}
           provenance: false
+          build-args: ${{ inputs.build_args }}
           cache-from: type=gha,scope=${{ inputs.slug }}-${{ matrix.arch }}
           cache-to: type=gha,mode=max,scope=${{ inputs.slug }}-${{ matrix.arch }}
           outputs: type=image,name=${{ inputs.image }},push-by-digest=true,name-canonical=true,push=true
