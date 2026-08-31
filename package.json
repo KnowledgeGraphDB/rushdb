@@ -5,9 +5,9 @@
   "scripts": {
     "clean": "pnpm -r run clean",
     "clean:install": "pnpm -r run flush & pnpm install",
-    "dev": "cd platform && pnpm dev:platform",
-    "build": "pnpm -r run build",
-    "build:platform-image": "docker build -t platform -f platform/Dockerfile .",
+    "dev": "node init && cd platform && pnpm dev:platform",
+    "build": "node init && pnpm -r run build",
+    "build:platform-image": "node init && docker build -t platform -f platform/Dockerfile .",
     "types:check": "pnpm -r run types:check",
     "format": "prettier --write ./**/*.{ts,tsx}",
     "lint": "eslint --ext mjs,js,ts,tsx",

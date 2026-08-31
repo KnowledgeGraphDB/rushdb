@@ -1,13 +1,13 @@
 {
   "name": "rushdb-dashboard",
-  "version": "2.13.0",
+  "version": "2.13.1",
   "description": "RushDB Dashboard",
   "type": "module",
   "private": true,
   "license": "Elastic License 2.0",
   "scripts": {
-    "dev": "pnpm theme:generate && NODE_ENV=development vite",
-    "build": "pnpm theme:generate && pnpm types:check && NODE_OPTIONS=--max-old-space-size=8192 vite build",
+    "dev": "node init && pnpm theme:generate && NODE_ENV=development vite",
+    "build": "node init && pnpm theme:generate && pnpm types:check && NODE_OPTIONS=--max-old-space-size=8192 vite build",
     "theme:generate": "tsx config/generate-theme.ts",
     "preview": "vite preview",
     "lint": "ESLINT_USE_FLAT_CONFIG=false eslint --ext .js,.jsx,.ts,.tsx .",

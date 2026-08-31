@@ -1,5 +1,11 @@
 # rushdb-core
 
+## 2.13.1
+
+### Patch Changes
+
+- 0e2f840: Fix prometheus metrics module import
+
 ## 2.13.0
 
 ### Minor Changes
