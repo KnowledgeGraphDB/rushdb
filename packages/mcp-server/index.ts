@@ -662,7 +662,37 @@ if (mcpTransport === 'http') {
   const { Hono } = await import('hono')
   const { serve } = await import('@hono/node-server')
 
+  // ── Prometheus metrics (request status counters + duration) ──
+  const client = await import('prom-client')
+  const register = new client.Registry()
+  client.collectDefaultMetrics({ register, prefix: 'rushdb_mcp_' })
+  const httpRequestsTotal = new client.Counter({
+    name: 'rushdb_mcp_http_requests_total',
+    help: 'Total HTTP requests by status class (200/300/400/500)',
+    labelNames: ['status'],
+    registers: [register]
+  })
+  const httpRequestDuration = new client.Histogram({
+    name: 'rushdb_mcp_http_request_duration_seconds',
+    help: 'HTTP request duration in seconds',
+    labelNames: ['method', 'route'],
+    buckets: [0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2.5, 5, 10],
+    registers: [register]
+  })
+
   const httpApp = new Hono()
+
+  // Count every HTTP request by status class + duration (exclude /metrics /health
+  // so self-scrapes don't pollute the counters).
+  httpApp.use('*', async (c, next) => {
+    const route = c.req.path
+    const method = c.req.method
+    if (route === '/metrics' || route === '/health') return next()
+    const end = httpRequestDuration.startTimer()
+    await next()
+    httpRequestsTotal.labels(String(Math.floor(c.res.status / 100) * 100)).inc()
+    end({ method, route })
+  })
   const port = Number(process.env.PORT ?? 3001)
   const resourceUrl = process.env.MCP_RESOURCE_URL || `http://localhost:${port}`
   const oauthIssuer = process.env.RUSHDB_OAUTH_ISSUER || 'https://api.rushdb.com'
@@ -925,6 +955,12 @@ if (mcpTransport === 'http') {
 
   // Health check for load balancer probes
   httpApp.get('/health', (c) => c.text('ok'))
+
+  // Prometheus metrics (Prometheus text format)
+  httpApp.get('/metrics', async (c) => {
+    c.header('Content-Type', 'text/plain; version=0.0.4; charset=utf-8')
+    return c.text(await register.metrics())
+  })
 
   serve({ fetch: httpApp.fetch, port }, (info) => {
     process.stderr.write(`RushDB MCP HTTP server running on port ${info.port}\n`)

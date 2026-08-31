@@ -9,6 +9,7 @@ export const GLOBAL_PREFIX_OPTIONS: GlobalPrefixOptions<string | RouteInfo> = {
   exclude: [
     { path: '/', method: RequestMethod.GET },
     { path: 'health', method: RequestMethod.GET },
+    { path: 'metrics', method: RequestMethod.GET },
     { path: '.well-known/*path', method: RequestMethod.GET },
     { path: 'oauth/*path', method: RequestMethod.GET },
     { path: 'oauth/*path', method: RequestMethod.POST },
