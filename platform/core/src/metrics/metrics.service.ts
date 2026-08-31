@@ -1,5 +1,5 @@
 import { Injectable, OnModuleInit } from '@nestjs/common'
-import client from 'prom-client'
+import * as client from 'prom-client'
 
 @Injectable()
 export class MetricsService implements OnModuleInit {
