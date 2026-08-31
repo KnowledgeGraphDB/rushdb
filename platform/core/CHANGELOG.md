@@ -1,5 +1,11 @@
 # rushdb-core
 
+## 2.13.0
+
+### Minor Changes
+
+- 5544dbc: Add metrics
+
 ## 2.12.0
 
 ### Minor Changes

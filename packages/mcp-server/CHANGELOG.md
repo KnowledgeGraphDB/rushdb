@@ -1,5 +1,11 @@
 # @rushdb/mcp-server
 
+## 2.13.0
+
+### Minor Changes
+
+- 5544dbc: Add metrics
+
 ## 2.11.0
 
 ### Minor Changes
