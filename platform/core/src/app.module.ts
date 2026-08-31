@@ -19,6 +19,7 @@ import { ThrottleService } from '@/dashboard/throttle/throttle.service'
 import { DatabaseModule } from '@/database/database.module'
 import { RequestCleanupInterceptor } from '@/database/interceptors/request-cleanup.interceptor'
 import { HealthController } from '@/health.controller'
+import { MetricsModule } from '@/metrics/metrics.module'
 
 import { join } from 'path'
 
@@ -54,7 +55,8 @@ import { join } from 'path'
       ]
     : []),
     ConsoleModule,
-    BackupModule
+    BackupModule,
+    MetricsModule
   ],
   providers: [
     AppService,
