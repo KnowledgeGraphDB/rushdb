@@ -21,7 +21,7 @@
     "fixtures"
   ],
   "scripts": {
-    "build": "rimraf dist && tsc",
+    "build": "node init && rimraf dist && tsc",
     "pack:check": "node scripts/verify-package.mjs",
     "prepack": "pnpm build",
     "types:check": "tsc --noEmit",

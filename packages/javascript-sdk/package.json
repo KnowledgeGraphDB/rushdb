@@ -1,6 +1,6 @@
 {
   "name": "@rushdb/javascript-sdk",
-  "description": "RushDB JavaScript SDK — memory layer for AI agents and modern apps",
+  "description": "RushDB JavaScript SDK \u2014 memory layer for AI agents and modern apps",
   "keywords": [
     "rushdb",
     "database",
@@ -47,9 +47,9 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.worker.d.ts",
   "scripts": {
-    "build": "pnpm clean && pnpm build:package && pnpm build:types",
-    "build:package": "node esbuild.config.cjs",
-    "build:types": "tsc --emitDeclarationOnly --outDir dist",
+    "build": "node init && pnpm clean && pnpm build:package && pnpm build:types",
+    "build:package": "node init && node esbuild.config.cjs",
+    "build:types": "node init && tsc --emitDeclarationOnly --outDir dist",
     "types:check": "tsc --noEmit",
     "docs:reference": "typedoc",
     "clean": "rm -rf ./dist ./node_modules/.cache ./coverage ./esm ./cjs ./types",

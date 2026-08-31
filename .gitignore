@@ -3,11 +3,9 @@ dist
 build
 *.log
 *.tgz
-.env
 .next
 .DS_Store
 .idea
-.vscode
 .eslintcache
 examples/**/yarn.lock
 package-lock.json
@@ -22,3 +20,4 @@ packages/javascript-sdk/types
 e2e/.server.log
 e2e/.e2e-state.json
 e2e/.sdk-env.json
+config.bat

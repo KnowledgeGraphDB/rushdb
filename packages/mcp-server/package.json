@@ -25,8 +25,8 @@
     "build"
   ],
   "scripts": {
-    "build:esbuild": "node esbuild.config.js",
-    "build": "rimraf build && node esbuild.config.js --prod",
+    "build:esbuild": "node init && node esbuild.config.js",
+    "build": "node init && rimraf build && node esbuild.config.js --prod",
     "watch:esbuild": "node esbuild.config.js --watch",
     "prepare": "npm run build",
     "watch": "tsc --watch",
